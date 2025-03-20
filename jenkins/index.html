@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jenkins Files</title>
+</head>
+<body>
+    <h1>Jenkins Files</h1>
+    <ul id="fileList">Loading files...</ul>
+    <a href="../index.html">Back to Home</a>
+
+    <script>
+        async function fetchGitHubFiles() {
+            let repoOwner = "your-username"; // Change this
+            let repoName = "your-repo"; // Change this
+            let folderPath = "jenkins"; // Change this if needed
+
+            let url = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`;
+
+            try {
+                let response = await fetch(url);
+                let files = await response.json();
+
+                let list = document.getElementById('fileList');
+                list.innerHTML = "";
+
+                files.forEach(file => {
+                    if (file.name.endsWith(".txt")) {
+                        let li = document.createElement('li');
+                        li.innerHTML = `<a href="${file.download_url}" download>${file.name}">${file.name}</a>`;
+                        list.appendChild(li);
+                    }
+                });
+            } catch (error) {
+                document.getElementById('fileList').innerHTML = "Failed to load files.";
+                console.error("Error fetching files:", error);
+            }
+        }
+
+        fetchGitHubFiles();
+    </script>
+</body>
+</html>
