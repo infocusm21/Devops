@@ -1,1 +1,46 @@
-text file sample
+To **highlight an entire line** in the terminal, you can use different methods depending on your terminal type:
+
+---
+
+### **1. Using Keyboard Shortcuts**
+#### **In Most Linux Terminals (GNOME Terminal, Konsole, etc.):**  
+- Move the cursor to the beginning of the line.
+- Press **`Shift + Home`** → Highlights from the cursor to the start.
+- Press **`Shift + End`** → Highlights from the cursor to the end.
+- Press **`Ctrl + A`** → Moves the cursor to the start of the line.
+- Press **`Ctrl + E`** → Moves the cursor to the end.
+
+#### **For zsh / bash with Readline:**
+- **Alt + Shift + →** → Select forward word-by-word.
+- **Alt + Shift + ←** → Select backward word-by-word.
+
+---
+
+### **2. Using Mouse**
+- Click at the beginning of the line, then drag to the end.
+- **Triple-click** anywhere on the line to highlight the entire line.
+
+---
+
+### **3. In `vim` or `nano` (Text Editors)**
+#### **For `vim`:**
+- Move to the desired line.
+- Press `V` (uppercase) → Highlights the entire line.
+- Move up/down to extend the selection.
+  
+#### **For `nano`:**
+- Move to the line.
+- Press `Ctrl + 6` → Start selection.
+- Use arrow keys to highlight.
+
+---
+
+### **4. In `tmux` (Terminal Multiplexer)**
+- Press **`Ctrl + B`, then `[`** to enter copy mode.
+- Move to the start of the line.
+- Press **`Space`** to start selection.
+- Move to the end and press **`Enter`**.
+
+---
+
+Would you like to highlight multiple lines or copy automatically? 🚀
