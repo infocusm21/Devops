@@ -6,9 +6,10 @@ body {
 }
 
 .image-links {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5x5 grid on desktop */
     gap: 20px;
+    justify-content: center;
     margin-top: 20px;
 }
 
@@ -21,4 +22,11 @@ body {
 
 .image-links img:hover {
     transform: scale(1.1);
+}
+
+/* Responsive: 3x3 grid on mobile */
+@media (max-width: 768px) {
+    .image-links {
+        grid-template-columns: repeat(3, 1fr); /* 3x3 grid for mobile */
+    }
 }
