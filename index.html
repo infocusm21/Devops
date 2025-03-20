@@ -3,43 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Search</title>
+    <title>File Explorer</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Search Files & Directories</h2>
-        
-        
 
-        <!-- Search Box -->
-        <input type="text" id="searchBox" placeholder="Search files..." oninput="searchFiles()">
-        <ul id="results"></ul>
+    <h2>Click to Open Folders</h2>
+
+    <!-- Image Links to Folders -->
+    <div class="image-links">
+        <a href="jenkins/">
+            <img src="img/jenkins.png" alt="Jenkins">
+        </a>
+        <a href="tomcat/">
+            <img src="img/tomcat.png" alt="Tomcat">
+        </a>
     </div>
-<!-- Image Links -->
-<div class="image-links">
-    <a href="jenkins/">
-        <img src="img/jenkins.png" alt="Jenkins">
-    </a>
-    <a href="tomcat/">
-        <img src="img/tomcat.png" alt="Tomcat">
-    </a>
-</div>
-    <script>
-        function searchFiles() {
-            let query = document.getElementById('searchBox').value;
-            fetch('search.php?q=' + query)
-                .then(response => response.json())
-                .then(data => {
-                    let resultsList = document.getElementById('results');
-                    resultsList.innerHTML = "";
-                    data.forEach(file => {
-                        let li = document.createElement('li');
-                        li.innerHTML = `<a href="${file}" target="_blank">${file}</a>`;
-                        resultsList.appendChild(li);
-                    });
-                });
-        }
-    </script>
+
 </body>
 </html>
