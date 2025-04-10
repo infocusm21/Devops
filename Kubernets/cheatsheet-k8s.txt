@@ -1,0 +1,85 @@
+Awesome! Here's your **🚀 `kubectl` Cheat Sheet** — perfect for learning, testing, and mastering Kubernetes commands! 💡
+
+---
+
+## 🔹 **📦 POD MANAGEMENT**
+
+| Command | Description |
+|--------|-------------|
+| `kubectl get pods` | List all Pods |
+| `kubectl describe pod <pod-name>` | Detailed info about a specific Pod |
+| `kubectl delete pod <pod-name>` | Delete a Pod |
+| `kubectl logs <pod-name>` | Show logs from a Pod |
+| `kubectl exec -it <pod-name> -- bash` | Open shell in a running Pod |
+| `kubectl run test-pod --image=nginx` | Run a new Pod with Nginx |
+
+---
+
+## 🔹 **📁 DEPLOYMENTS**
+
+| Command | Description |
+|--------|-------------|
+| `kubectl create deployment my-app --image=nginx` | Create Deployment |
+| `kubectl get deployments` | List all Deployments |
+| `kubectl scale deployment my-app --replicas=3` | Scale up/down Pods |
+| `kubectl delete deployment my-app` | Delete Deployment |
+| `kubectl rollout restart deployment my-app` | Restart Pods in deployment |
+
+---
+
+## 🔹 **🌐 SERVICES**
+
+| Command | Description |
+|--------|-------------|
+| `kubectl expose deployment my-app --type=NodePort --port=80` | Create Service |
+| `kubectl get services` | List all Services |
+| `kubectl describe service my-app` | Show Service details |
+
+---
+
+## 🔹 **📝 YAML FILES**
+
+| Command | Description |
+|--------|-------------|
+| `kubectl apply -f config.yaml` | Create or update from YAML file |
+| `kubectl delete -f config.yaml` | Delete resources from YAML file |
+| `kubectl create -f config.yaml` | Create resources from YAML (first time) |
+| `kubectl diff -f config.yaml` | Show what will change before applying |
+
+---
+
+## 🔹 **📊 CLUSTER INFO**
+
+| Command | Description |
+|--------|-------------|
+| `kubectl cluster-info` | Show cluster master & DNS info |
+| `kubectl get nodes` | List all cluster nodes |
+| `kubectl describe node <node-name>` | Detailed info about a node |
+
+---
+
+## 🔹 **💡 BONUS: Useful Flags**
+
+| Flag | Use |
+|------|-----|
+| `-n <namespace>` | Run command in a specific namespace |
+| `--all-namespaces` | Apply to all namespaces |
+| `-o yaml` | Output in YAML format |
+| `-o wide` | Show extra info like node name, IP |
+
+---
+
+## ✅ Example Workflow
+
+```bash
+kubectl create deployment web --image=nginx
+kubectl expose deployment web --port=80 --type=NodePort
+kubectl get pods
+kubectl get services
+kubectl describe pod <pod-name>
+kubectl logs <pod-name>
+```
+
+---
+
+If you want this cheat sheet as a **downloadable PDF**, I can make that too! Want me to generate it? 📄💾
