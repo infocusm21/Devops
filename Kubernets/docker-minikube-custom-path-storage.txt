@@ -1,0 +1,104 @@
+Nice! You're aiming for **advanced control** — storing container images used by Minikube in a **custom directory** is definitely doable but depends on the **container runtime and driver** Minikube is using.
+
+Let’s break it down and guide you to get this done:
+
+---
+
+## 🔍 First: Check Minikube Driver & Runtime
+
+Run this:
+```bash
+minikube profile list
+minikube config view
+```
+
+And:
+```bash
+minikube ssh docker info    # if you're using Docker driver
+```
+
+You'll usually see either:
+
+- **Docker**
+- **containerd**
+- **VirtualBox**
+- **KVM2**
+
+Let me know which one you're on.
+
+---
+
+## ✅ Option 1: Use Docker & Store Images in Custom Directory
+
+If you're using the **Docker driver**, Docker stores images in:
+```
+/var/lib/docker
+```
+
+To change it to a **custom path** (example: `/mnt/my-docker-store`):
+
+1. Stop Minikube:
+```bash
+minikube stop
+```
+
+2. Configure Docker in Minikube to use custom directory:
+```bash
+minikube ssh
+sudo mkdir -p /mnt/my-docker-store
+sudo systemctl stop docker
+```
+
+3. Edit the Docker service config:
+```bash
+sudo nano /etc/docker/daemon.json
+```
+
+Add or update:
+```json
+{
+  "data-root": "/mnt/my-docker-store"
+}
+```
+
+4. Restart Docker:
+```bash
+sudo systemctl daemon-reexec
+sudo systemctl start docker
+exit
+```
+
+5. Start Minikube again:
+```bash
+minikube start
+```
+
+Now Docker inside Minikube stores all pulled images in your custom path!
+
+---
+
+## ✅ Option 2: Set Custom Minikube Home
+
+You can also move the **whole Minikube environment** (config, cache, images, clusters, etc.):
+
+```bash
+export MINIKUBE_HOME=$HOME/my-minikube-data
+minikube start
+```
+
+To make this permanent:
+```bash
+echo 'export MINIKUBE_HOME=$HOME/my-minikube-data' >> ~/.bashrc
+source ~/.bashrc
+```
+
+---
+
+## 🧪 Want me to generate full steps based on your driver?
+
+Just tell me:
+```bash
+minikube config get driver
+```
+
+And I’ll give you **customized instructions**!
