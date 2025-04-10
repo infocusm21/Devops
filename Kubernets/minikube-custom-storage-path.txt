@@ -1,0 +1,63 @@
+You're almost there — great question! Let’s clarify how **Minikube works with custom paths** and where it **stores images and data**:
+
+---
+
+## ✅ Yes: Minikube Binary in Custom Path
+
+You're running the `minikube` binary from your **custom path**, so ✅ that part is working as expected.
+
+---
+
+## 🗂️ But: Minikube's Storage (Images, Clusters, etc.)
+
+By default, **Minikube stores pulled images, cluster data, and volumes in:**
+```
+~/.minikube/
+```
+
+Even if your binary is in a custom folder, Minikube **still uses this default path** unless you override it.
+
+---
+
+## 🎯 If You Want to Change the Storage Location
+
+You can customize where Minikube stores its data using the `--profile` and `--root` options **or** by setting environment variables.
+
+### ✅ Option 1: Use `MINIKUBE_HOME`
+This changes where Minikube stores its internal files:
+```bash
+export MINIKUBE_HOME=$HOME/my-minikube-data
+minikube start
+```
+
+It will now create:
+```
+$HOME/my-minikube-data/
+├── cache/
+├── machines/
+├── profiles/
+└── ...
+```
+
+### ✅ Option 2: Use a custom driver storage (like a custom disk)
+If you're using the Docker driver:
+- Docker will store images in its own storage location (`/var/lib/docker`) unless Docker itself is configured to store somewhere else.
+
+---
+
+## 💡 Summary:
+
+| Feature | Customizable? | Default |
+|--------|----------------|---------|
+| `minikube` binary location | ✅ Yes | `/usr/local/bin/minikube` |
+| Minikube data (images, config) | ✅ Yes (`MINIKUBE_HOME`) | `~/.minikube/` |
+| Docker image storage | ✅ Yes (via Docker config) | `/var/lib/docker` |
+
+---
+
+If you want, I can guide you through:
+- Setting `MINIKUBE_HOME` permanently
+- Pointing Minikube to a different disk or mount
+- Or configuring Docker to use a custom image directory
+
+Just let me know 😎
