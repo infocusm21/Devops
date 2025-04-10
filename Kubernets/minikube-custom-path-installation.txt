@@ -1,0 +1,38 @@
+Got it! If you want to install **Minikube** in a **custom directory** instead of the default `/usr/local/bin`, here's how to do it:
+
+---
+
+## ✅ Install Minikube to a Custom Directory
+
+### 🔧 Step-by-step:
+
+```bash
+# Step 1: Download the Minikube binary
+curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
+
+# Step 2: Choose your custom directory (example: $HOME/my-tools)
+mkdir -p $HOME/my-tools
+
+# Step 3: Move and rename the binary
+mv minikube-linux-amd64 $HOME/my-tools/minikube
+
+# Step 4: Make it executable
+chmod +x $HOME/my-tools/minikube
+
+# Step 5: (Optional but recommended) Add it to your PATH
+echo 'export PATH=$HOME/my-tools:$PATH' >> ~/.bashrc
+source ~/.bashrc
+```
+
+---
+
+### ✅ Test it:
+```bash
+minikube version
+```
+
+If everything is set up correctly, you should see the version info.
+
+---
+
+Let me know your custom path if you want me to tailor the commands exactly for your folder.
