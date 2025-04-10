@@ -1,0 +1,123 @@
+Awesome! Let’s break it down **from the very basics** and then do hands-on practice with `Pods`, `Nodes`, and `Containers` in Kubernetes.
+
+---
+
+## ☸️ 1. Kubernetes Core Concepts
+
+### 🧱 Nodes
+- A **Node** is a **virtual machine (VM)** or **physical server**.
+- It runs the Kubernetes components: **kubelet**, **container runtime**, and **kube-proxy**.
+- It hosts **Pods**.
+
+> In Minikube, your laptop acts as a single **Node** cluster.
+
+---
+
+### 📦 Pods
+- A **Pod** is the **smallest unit in Kubernetes**.
+- A Pod wraps **one or more containers** (usually just one).
+- All containers in a Pod **share the same IP, storage, and network**.
+
+---
+
+### 🐳 Containers
+- **Containers** (like Docker) run inside Pods.
+- They contain your application, like `nginx`, `tomcat`, `springboot`, etc.
+
+---
+
+## 🔧 Hands-on Practice
+
+Let’s try everything using `kubectl` + `minikube`.
+
+---
+
+### ✅ Step 1: Start Minikube (if not already)
+```bash
+minikube start
+```
+
+---
+
+### ✅ Step 2: Create a Pod (manually)
+
+Here, we’ll create a **single Pod** that runs the **nginx** container.
+
+```bash
+kubectl run my-nginx-pod --image=nginx
+```
+
+> This creates a Pod named `my-nginx-pod` running one container with the image `nginx`.
+
+---
+
+### ✅ Step 3: View the Pod and Node
+
+```bash
+kubectl get pods
+kubectl describe pod my-nginx-pod
+```
+
+Check the node it’s running on:
+```bash
+kubectl get pod my-nginx-pod -o wide
+```
+
+You’ll see it running on the Minikube node.
+
+---
+
+### ✅ Step 4: Exec into the Pod (like SSH)
+
+```bash
+kubectl exec -it my-nginx-pod -- /bin/bash
+```
+
+Inside the container:
+```bash
+apt update && apt install curl -y
+curl localhost
+```
+
+Then exit:
+```bash
+exit
+```
+
+---
+
+### ✅ Step 5: Delete the Pod
+
+```bash
+kubectl delete pod my-nginx-pod
+```
+
+---
+
+### ✅ BONUS: View the Node
+
+```bash
+kubectl get nodes
+kubectl describe node
+```
+
+You'll see CPU, memory, pods running, etc.
+
+---
+
+## 🔄 Summary:
+
+| Concept   | Meaning                              |
+|-----------|---------------------------------------|
+| **Node**  | Machine (VM or physical) that runs Pods |
+| **Pod**   | Smallest unit, contains containers     |
+| **Container** | The actual app/runtime (like nginx) |
+
+---
+
+Let me know if you want to:
+- Deploy a multi-container pod
+- Visualize with a diagram
+- Go next to Deployments & ReplicaSets
+
+Ready when you are! 💪

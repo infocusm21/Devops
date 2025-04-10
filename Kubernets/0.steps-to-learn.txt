@@ -1,0 +1,51 @@
+Awesome! Since you’re diving deep into Kubernetes, here's a roadmap we can follow to master it step-by-step:
+
+---
+
+## 🔍 Kubernetes Deep-Dive Learning Path
+
+### 🧱 **1. Core Concepts**
+- Pods, Nodes, and Containers ✅
+- Deployments, ReplicaSets
+- Services (ClusterIP, NodePort, LoadBalancer)
+- Namespaces
+- Labels & Selectors
+
+### ⚙️ **2. Control Plane Internals**
+- kube-apiserver
+- kube-scheduler ✅
+- kube-controller-manager
+- etcd ✅
+- kubelet ✅
+- kube-proxy ✅
+
+### 📦 **3. Config & Management**
+- ConfigMaps & Secrets
+- Volumes (emptyDir, hostPath, PVC)
+- Probes: liveness, readiness, startup
+- Resource requests & limits (CPU/RAM)
+- Taints & Tolerations
+- Node affinity / pod affinity
+
+### 🔄 **4. Scaling & Updates**
+- Horizontal Pod Autoscaler (HPA)
+- Vertical Pod Autoscaler (VPA)
+- Rolling updates & rollbacks
+- Cluster Autoscaler (like with AWS)
+
+### 🔐 **5. Networking & Security**
+- CNI plugins (like Flannel, Calico)
+- NetworkPolicies
+- RBAC (Role-Based Access Control)
+- Service Accounts
+
+### 🚀 **6. Advanced Tools & Real-World Setup**
+- Helm (package manager for K8s)
+- Ingress controllers (Nginx, Traefik)
+- Logging & monitoring (Prometheus + Grafana, Loki)
+- CI/CD pipelines (ArgoCD, Flux)
+- Kustomize for environment configs
+
+---
+
+Would you like to go topic-by-topic in this order? Or are you working on a project where we can learn hands-on as we go?

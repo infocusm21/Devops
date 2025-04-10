@@ -1,0 +1,52 @@
+Good catch! When `kubectl` **doesn’t autocomplete**, it usually means the **bash/zsh shell completion** for `kubectl` isn’t enabled yet.
+
+Let’s fix that. 👇
+
+---
+
+## ✅ Step-by-step: Enable `kubectl` Autocomplete
+
+### 🔹 1. For **bash** users (default on Ubuntu)
+
+```bash
+sudo apt-get install bash-completion -y
+echo 'source <(kubectl completion bash)' >> ~/.bashrc
+source ~/.bashrc
+```
+
+Optional but helpful:
+```bash
+alias k=kubectl
+complete -F __start_kubectl k
+```
+
+Now you can use `k` as a shortcut for `kubectl` with tab completion!
+
+---
+
+### 🔹 2. For **zsh** users
+
+```bash
+echo 'source <(kubectl completion zsh)' >> ~/.zshrc
+source ~/.zshrc
+```
+
+---
+
+## ✅ Test It!
+
+After setup, try:
+
+```bash
+kubectl create [TAB][TAB]
+```
+
+You should see options like:
+
+```
+clusterrolebinding  configmap  cronjob  deployment  job  namespace  pod  service
+```
+
+---
+
+Let me know what shell you're using (`bash`, `zsh`, or something else), and I can tailor it exactly to your setup!

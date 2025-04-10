@@ -1,0 +1,63 @@
+Perfect! Let’s go step-by-step. Since you’ve already got a good grasp on **Pods, Nodes, Deployments, kubelet, etc.**, let’s dive into the next key topics in order.
+
+---
+
+## 🧱 1. **Namespaces, Labels, and Selectors** (Foundations for organizing everything)
+
+---
+
+### 📂 **Namespaces** – Think of them like folders to separate environments or teams.
+
+```bash
+kubectl get namespaces
+```
+
+Common ones:
+- `default` – where everything goes unless you specify otherwise
+- `kube-system` – Kubernetes internal components
+- `kube-public` – readable by everyone (usually not used)
+- `kube-node-lease` – for heartbeats from nodes
+
+✅ Create a new namespace:
+```bash
+kubectl create namespace dev
+```
+
+✅ Deploy something in that namespace:
+```bash
+kubectl create deployment nginx --image=nginx --namespace=dev
+```
+
+✅ View resources in a namespace:
+```bash
+kubectl get pods -n dev
+```
+
+---
+
+### 🏷️ **Labels & Selectors** – Help Kubernetes identify and group resources.
+
+Add labels:
+```bash
+kubectl label pod nginx-abc123 app=frontend env=dev
+```
+
+Find resources with specific labels:
+```bash
+kubectl get pods -l app=frontend
+```
+
+Used by:
+- Services (to find pods)
+- Deployments (to manage pods)
+- NetworkPolicies
+- Autoscalers
+
+---
+
+Would you like a quick hands-on lab where we:
+1. Create a namespace  
+2. Deploy a labeled app  
+3. Create a Service that uses a selector to connect to the pod?
+
+Or should we move to the next topic: **ConfigMaps & Secrets**?
