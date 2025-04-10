@@ -1,0 +1,83 @@
+Awesome! Here's a full **YAML-based example** that covers:
+
+- Creating a Namespace  
+- Deploying `nginx` in that namespace  
+- Adding Labels  
+- Exposing it with a Service that uses a Label Selector  
+
+---
+
+## 📄 `nginx-deploy.yaml`
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test-ns
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+  namespace: test-ns
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: dev
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  namespace: test-ns
+spec:
+  selector:
+    app: nginx
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30008
+```
+
+---
+
+## ✅ Apply This Configuration:
+
+Save it as `nginx-deploy.yaml` and apply with:
+
+```bash
+kubectl apply -f nginx-deploy.yaml
+```
+
+---
+
+## 🚀 Test It:
+
+To access the service:
+```bash
+minikube service nginx-service -n test-ns
+```
+
+Or get the URL manually:
+```bash
+minikube service nginx-service -n test-ns --url
+```
+
+---
+
+Let me know once you’ve tested it — and we’ll jump into **ConfigMaps & Secrets** next. You're doing great!
