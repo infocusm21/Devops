@@ -1,0 +1,81 @@
+It looks like you want to create a systemd service, but there are inconsistencies in the service name and the application being started. Based on your inputs, I'll assume you want to create a service for **PyCharm Community Edition**. Here’s the corrected systemd service file:
+
+
+cat /etc/systemd/system/pychram.service
+
+### **PyCharm systemd Service File**
+```ini
+
+[Unit]
+Description=PyCharm Community Edition Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/pycharm-community-2024.3.4/bin/pycharm.sh
+User=harish
+Restart=on-failure
+Environment=DISPLAY=:0
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+
+[Install]
+WantedBy=multi-user.target
+
+EOT
+
+```
+### **Commands to Enable & Start the Service:**
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable pycharm.service
+sudo systemctl start pycharm.service
+```
+
+
+To create a desktop icon----------------------------------------------------------
+
+Glad it's working! Now, to make PyCharm appear in the application search menu with an icon, you need to create a **desktop entry** for it.
+
+### **Step 1: Create the Desktop Entry**
+Run the following command to open a new `.desktop` file in a text editor:
+
+
+```bash
+nano ~/.local/share/applications/pycharm.desktop
+```
+
+
+(If you want it available system-wide, use `/usr/share/applications/pycharm.desktop` instead.)
+
+### **Step 2: Add the Following Content**
+```ini
+
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=PyCharm Community
+Icon=/opt/pycharm-community-2024.3.4/bin/pycharm.svg
+Exec=/opt/pycharm-community-2024.3.4/bin/pycharm.sh
+Categories=Development;IDE;
+Terminal=false
+StartupWMClass=jetbrains-pycharm
+```
+
+
+### **Step 3: Make It Executable**
+
+
+```bash
+chmod +x ~/.local/share/applications/pycharm.desktop
+```
+
+### **Step 4: Update Desktop Database**
+
+
+```bash
+update-desktop-database ~/.local/share/applications/
+```
+
+Now, restart your system or log out and log back in. PyCharm should appear in your search menu with the correct icon! 🎉
+
