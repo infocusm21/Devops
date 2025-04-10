@@ -1,0 +1,69 @@
+Nice! You’ve created a deployment using:
+
+```bash
+kubectl create deployment demo-app --image=nginx
+```
+
+Now let's **verify** and **access** the app inside your Minikube cluster.
+
+---
+
+## ✅ Step 1: Verify the Deployment and Pod
+
+```bash
+kubectl get deployments
+kubectl get pods
+```
+
+You should see something like:
+
+```
+NAME        READY   UP-TO-DATE   AVAILABLE   AGE
+demo-app    1/1     1            1           30s
+
+NAME                         READY   STATUS    RESTARTS   AGE
+demo-app-xxxxxxxxxx-xxxxx    1/1     Running   0          30s
+```
+
+---
+
+## 🌐 Step 2: Expose It as a Service
+
+To access it in your browser (or via curl), expose the deployment as a service:
+
+```bash
+kubectl expose deployment demo-app --type=NodePort --port=80
+```
+
+This creates a Kubernetes Service of type `NodePort` — it maps port `80` inside the container to a random high port on the Minikube VM.
+
+---
+
+## 🚀 Step 3: Access the App
+
+Use this to open it in your **browser** automatically:
+
+```bash
+minikube service demo-app
+```
+
+It will open the default browser to something like:
+```
+http://192.168.xx.xx:30000
+```
+
+Alternatively, run:
+```bash
+minikube service demo-app --url
+```
+
+You'll get a URL you can copy and visit manually.
+
+---
+
+Let me know if you want to:
+- Use a custom domain (like `demo.local`)
+- Expose it externally from a cloud cluster
+- Or deploy a more complex app like Tomcat, Spring Boot, etc.
+
+Happy K8s-ing! ☸️🔥
