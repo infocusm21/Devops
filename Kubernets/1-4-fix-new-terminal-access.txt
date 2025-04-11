@@ -1,0 +1,72 @@
+Thanks for the clarification! You're saying:
+
+- ✅ In the **current terminal**, after running Minikube, `kubectl` works fine.
+- ❌ In a **new terminal**, `kubectl` doesn’t respond or gives no output/error.
+
+This is a **KUBECONFIG issue**, not just a PATH issue.
+
+---
+
+### 🧠 Why This Happens
+
+When you start `minikube`, it **sets the kubeconfig context** for `kubectl` **only in that terminal session**.
+
+Minikube modifies the current shell environment using:
+```bash
+eval $(minikube -p minikube docker-env)
+```
+or more importantly:
+```bash
+kubectl config use-context minikube
+```
+
+If that's not done in a **new terminal**, `kubectl` won't know which cluster/context to talk to.
+
+---
+
+### ✅ Fix It Permanently
+
+#### Step 1: Make sure `kubectl` is in your `$PATH`
+
+(You’ve already installed it to a custom path)
+
+In `~/.bashrc` or `~/.zshrc`, add:
+```bash
+export PATH="/media/harish/E-drive/Ubnutu-sw-repo/installed:$PATH"
+```
+
+#### Step 2: Make sure kubeconfig is set properly
+
+Also add:
+```bash
+export KUBECONFIG=$HOME/.kube/config
+kubectl config use-context minikube > /dev/null 2>&1
+```
+
+#### Step 3: Apply and check
+
+Reload config:
+```bash
+source ~/.bashrc   # or source ~/.zshrc
+```
+
+Then test in a **new terminal**:
+```bash
+kubectl get pods -A
+```
+
+---
+
+### 🧪 Optional: Check what's happening
+
+In a terminal where `kubectl` **doesn't work**, run:
+```bash
+echo $KUBECONFIG
+kubectl config current-context
+```
+
+If `KUBECONFIG` is empty or context is missing — that’s the issue.
+
+---
+
+Let me know if you want a shortcut or script to auto-activate Minikube and `kubectl` together whenever you open the terminal.
