@@ -1,0 +1,159 @@
+
+---
+
+### 🛠 `nginx-hostpath-deployment.yaml`
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-hostpath
+  labels:
+    app: nginx-hostpath
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-hostpath
+  template:
+    metadata:
+      labels:
+        app: nginx-hostpath
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.25
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: html-volume
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: html-volume
+        hostPath:
+          path: /mnt/data
+          type: DirectoryOrCreate
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-hostpath-service
+spec:
+  selector:
+    app: nginx-hostpath
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30080  # Optional; you can let K8s assign automatically
+```
+
+---
+
+### ✅ To Apply:
+
+```bash
+kubectl apply -f nginx-hostpath-deployment.yaml
+```
+
+
+
+### ✅ What You Can Do Instead:
+
+If you want the mount to run **in the background**, you can do this:
+
+```bash
+nohup minikube mount /home/harish/pod-data:/mnt/data --port=9090 &
+```
+
+- This runs it in the background.
+- The process won’t stop if you close the terminal.
+- Output will be written to `nohup.out` file.
+
+You can check it's running:
+
+
+
+
+
+```bash
+ps aux | grep minikube
+```
+
+
+
+
+And to stop it later:
+
+
+
+
+
+```bash
+pkill -f "minikube mount"
+```
+
+
+
+Thanks for sharing that! The error means **Minikube’s mount service can't connect properly**, likely due to a **firewall or port issue** on your host machine. Let’s fix it.
+
+---
+
+
+
+
+
+
+
+### ✅ Fix Steps for Mounting Issue
+
+#### 🔧 **1. Choose a Free Port (e.g., 9090) and Mount**
+
+Try mounting with a specific port:
+
+```bash
+minikube mount /home/harish/pod-data:/mnt/data --port=9090
+```
+
+This sets a specific port that avoids possible conflicts.
+
+---
+
+#### 🔥 **2. (Optional) Allow Port in UFW (If UFW Firewall is Enabled)**
+
+If you're using Ubuntu's UFW firewall, allow the mount port (e.g., 9090):
+
+```bash
+sudo ufw allow 9090
+```
+
+You can check firewall status with:
+
+```bash
+sudo ufw status
+```
+
+---
+
+#### 💡 **3. If Still Failing — Try Running Minikube with Driver Info**
+
+Sometimes drivers like Docker or VirtualBox block the mount.
+
+Check the current driver:
+
+```bash
+minikube profile list
+minikube config get driver
+```
+
+If you're using `docker`, make sure Docker daemon is active. If you're using `virtualbox`, it may require extra permission to mount.
+
+---
+
+#### 🧪 **4. As a Backup Plan: Use a Kubernetes PersistentVolume**
+
+If `minikube mount` keeps failing, I can show you how to use a `PersistentVolume` using `hostPath` **from inside the Minikube VM** instead of mounting from your local machine. This is more reliable for testing.
+
+Would you like to try that fallback? Or want to continue troubleshooting the mount?
