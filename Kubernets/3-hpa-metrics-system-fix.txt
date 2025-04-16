@@ -1,0 +1,51 @@
+Before making the HPA you should be ensure metrics-server
+----------------------------------------------------------------------
+$ kubectl get deployments.apps metrics-server -n kube-system 
+
+*******Error from server (NotFound): deployments.apps "metrics-server" not found*********
+----------------------------------------------------------------------
+
+it Download the metrics-server deployment in your node machine
+----------------------------------------------------------------------
+$ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.5.0/components.yaml
+----------------------------------------------------------------------
+
+here all no should be in 1 
+----------------------------------------------------------------------
+$ kubectl get deployments.apps metrics-server -n kube-system 
+
+NAME             READY   UP-TO-DATE   AVAILABLE   AGE
+metrics-server   0/1     1            0           17s
+----------------------------------------------------------------------
+
+Add this command line This disables the credicatles of the metrics-server access
+----------------------------------------------------------------------
+$ kubectl patch deployment metrics-server -n kube-system \
+  --type='json' -p='[{"op":"add","path":"/spec/template/spec/containers/0/args/-","value":"--kubelet-insecure-tls"}]'
+----------------------------------------------------------------------
+
+
+and then restart the kube-system
+----------------------------------------------------------------------
+$ kubectl rollout restart deployment metrics-server -n kube-system
+----------------------------------------------------------------------
+
+
+
+----------------------------------------------------------------------
+$ kubectl get deployments.apps metrics-server -n kube-system 
+
+NAME             READY   UP-TO-DATE   AVAILABLE   AGE
+metrics-server   1/1     1            1           117s
+
+----------------------------------------------------------------------
+
+
+
+
+manul hpa fix-
+----------------------------------------------------------------------
+kubectl create deployment nginx --image=nginx && \
+kubectl set resources deployment nginx --requests=cpu=100m --limits=cpu=200m && \
+kubectl autoscale deployment nginx --cpu-percent=10 --min=1 --max=5
+----------------------------------------------------------------------
