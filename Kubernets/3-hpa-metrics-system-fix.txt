@@ -49,3 +49,13 @@ kubectl create deployment nginx --image=nginx && \
 kubectl set resources deployment nginx --requests=cpu=100m --limits=cpu=200m && \
 kubectl autoscale deployment nginx --cpu-percent=10 --min=1 --max=5
 ----------------------------------------------------------------------
+
+--requests=cpu=100m --limits=cpu=200m
+
+🧠 Understanding CPU Units
+1 CPU = 1 full core
+
+500m = 0.5 core (millicores)
+
+If you have 2 CPUs, that's 2000m total available across your system.
+
