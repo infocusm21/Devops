@@ -1,0 +1,28 @@
+Download the Vm .vdi image file from the https://www.linuxvmimages.com/
+
+1. add the imgage .vbox from the virtual box manager
+
+username : centos
+password : centos
+
+2. if you like to reset the password of the username
+
+enter the 'e' keyword when it's booting time
+
+and at the end of the line [ quite splash rw init=/bin/bash ]
+
+now press ctrl + x save and enter to the safe recuse mode
+
+3. here go to the 
+
+$sudo su -i
+
+$passwd centos
+
+$exec /sbin/init  --> this reboot machine
+
+
+
+
+
+

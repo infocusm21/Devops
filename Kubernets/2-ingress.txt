@@ -1,0 +1,137 @@
+Awesome! You’re moving fast! Let's dive into:
+
+---
+
+## 🌐 Step 7: Ingress – Expose Multiple Services with a Single IP & Domain
+
+### 🔎 What is Ingress?
+
+**Ingress** is like a smart HTTP router 🔀 in Kubernetes. It allows you to:
+
+- Use **one IP address** for multiple apps
+- Route traffic based on **path** or **domain**
+- Use **TLS/SSL (HTTPS)** easily
+- Do **URL rewriting**, **redirects**, etc.
+
+---
+
+## 🧱 Real Example: Host Multiple Apps
+
+Let’s say:
+- `/app1` → goes to your **nginx** app
+- `/app2` → goes to your **tomcat** app
+
+### 🌐 Architecture:
+
+```
+Client
+  ↓
+Ingress Controller (e.g. NGINX Ingress)
+  ↓
+ ┌─────────────┐     ┌──────────────┐
+ │ Service 1   │     │ Service 2    │
+ │ nginx       │     │ tomcat       │
+ └─────────────┘     └──────────────┘
+```
+
+---
+
+## 🧰 Step-by-Step Setup
+
+### 1️⃣ Install an Ingress Controller
+
+For Minikube:
+
+```bash
+minikube addons enable ingress
+```
+
+Verify:
+
+```bash
+kubectl get pods -n ingress-nginx
+kubectl get svc -n ingress-nginx
+```
+
+---
+
+### 2️⃣ Create Deployments + Services
+
+#### Example: Nginx
+
+```bash
+kubectl create deployment nginx-app --image=nginx
+kubectl expose deployment nginx-app --port=80 --name=nginx-service
+```
+
+#### Example: Tomcat
+
+```bash
+kubectl create deployment tomcat-app --image=tomcat
+kubectl expose deployment tomcat-app --port=8080 --name=tomcat-service
+```
+
+---
+
+### 3️⃣ Create Ingress Resource
+
+Save this as `ingress.yaml`:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /nginx
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service
+            port:
+              number: 80
+      - path: /tomcat
+        pathType: Prefix
+        backend:
+          service:
+            name: tomcat-service
+            port:
+              number: 8080
+```
+
+Apply it:
+
+```bash
+kubectl apply -f ingress.yaml
+```
+
+---
+
+### 4️⃣ Access It!
+
+Run this if you're using Minikube:
+
+```bash
+minikube ip
+```
+
+Visit in your browser:
+
+- `http://<minikube-ip>/nginx`
+- `http://<minikube-ip>/tomcat`
+
+---
+
+### ✅ Done! Now you have:
+- One IP
+- Two apps
+- Routed cleanly with Ingress 😎
+
+---
+
+Want to try this on AWS (with real DNS + HTTPS)? Or explore **config maps, secrets**, or **persistent storage (volumes)** next?
