@@ -48,12 +48,29 @@ Add this content:
 Then save the file.
 
 ✅ 4. Restart Docker
-
+---------------------------------------------------------------------
 sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
 sudo systemctl enable docker
 sudo systemctl start docker
 sudo systemctl restart docker
-
+---------------------------------------------------------------------
 
 sudo docker info | grep "Docker Root Dir"
+
+---------------------------------------------------------------------
+✅ Solution: Add User to docker Group
+Run this:
+---------------------------------------------------------------------
+sudo usermod -aG docker gharish
+---------------------------------------------------------------------
+
+
+Then log out and log back in (very important — group membership updates only take effect after re-login).
+
+After that, try:
+---------------------------------------------------------------------
+docker ps
+---------------------------------------------------------------------
+
+You should no longer get the permission denied error.
