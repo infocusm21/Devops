@@ -1,0 +1,80 @@
+Nice! Let’s now create a **custom Apache HTTP Server (httpd)** Docker image using a `Dockerfile`.
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+### 🛠 1. **Create a Project Directory**
+
+```bash
+mkdir custom-httpd
+cd custom-httpd
+```
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+### 📄 2. **Create a `Dockerfile`**
+
+```Dockerfile
+# Use the official Apache HTTP Server base image
+FROM httpd:2.4
+
+# Maintainer info (optional)
+LABEL maintainer="infocusm21@gmail.com"
+
+# Copy custom HTML files into the document root
+COPY web-data/* /usr/local/apache2/htdocs/
+
+# Optional: Copy custom httpd.conf (uncomment to use)
+# COPY ./httpd.conf /usr/local/apache2/conf/httpd.conf
+
+# Expose default Apache port
+EXPOSE 80
+
+# The default CMD in the base image already starts Apache
+
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+### 🌐 3. **Add Some HTML**
+
+Make a folder called `html` and add an `index.html` inside it:
+
+```bash
+mkdir html
+echo "<h1>Hello from custom Apache HTTP Server Docker image!</h1>" > html/index.html
+```
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+### 🧱 4. **Build the Docker Image**
+
+```bash
+docker build -t my-custom-httpd .
+```
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+### 🚀 5. **Run the Container**
+
+```bash
+docker run -d -p 8080:80 --name httpd-container my-custom-httpd
+```
+
+Open your browser and go to:  
+📍 `http://localhost:8080` — and you should see your custom HTML page.
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+### 🔧 (Optional) Custom Configuration
+
+If you want to use your own `httpd.conf`, just copy it like this in your Dockerfile:
+
+```Dockerfile
+COPY ./httpd.conf /usr/local/apache2/conf/httpd.conf
+```
+
+Let me know if you’d like help setting up:
+- Virtual hosts
+- Reverse proxy
+- SSL (HTTPS)
+- PHP with Apache  
+I can guide you through all of that too.
