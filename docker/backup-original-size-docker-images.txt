@@ -1,0 +1,73 @@
+Absolutely — here's a **safe, resource-friendly Docker image backup script** that:
+
+✅ Loops through all your images  
+✅ Uses `nice` + `ionice` to avoid system slowdowns  
+✅ Saves each image as a `.tar` file  
+✅ Logs progress and errors to a file  
+✅ Allows optional target backup folder (like external drive)
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+### 📝 Script: `docker_backup_all.sh`
+
+```bash
+#!/bin/bash
+
+# Set your backup directory (default: current dir or pass as $1)
+BACKUP_DIR="${1:-./docker-backups}"
+LOG_FILE="$BACKUP_DIR/backup-log.txt"
+
+mkdir -p "$BACKUP_DIR"
+echo "Docker image backup started at $(date)" > "$LOG_FILE"
+
+# Get list of images in format: repository:tag
+images=$(docker images --format '{{.Repository}}:{{.Tag}}')
+
+for image in $images; do
+    # Create a safe file name
+    safe_name=$(echo $image | tr '/:' '_')
+    output_file="$BACKUP_DIR/${safe_name}.tar"
+
+    echo "Backing up $image -> $output_file"
+    echo "$(date) - Saving $image as $output_file" >> "$LOG_FILE"
+
+    # Run with low resource priority
+    if ionice -c2 -n7 nice -n19 docker save -o "$output_file" "$image" >> "$LOG_FILE" 2>&1; then
+        echo "✅ $image saved successfully"
+    else
+        echo "❌ Failed to save $image" | tee -a "$LOG_FILE"
+    fi
+done
+
+echo "Backup complete at $(date)" >> "$LOG_FILE"
+echo "✔️ All done! Backup saved in: $BACKUP_DIR"
+```
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+### 🔧 How to Use
+
+1. Save it as `docker_backup_all.sh`
+2. Make it executable:
+
+```bash
+chmod +x docker_backup_all.sh
+```
+
+3. Run it (optionally pass your external folder):
+
+```bash
+./docker_backup_all.sh /media/harish/E-drive/docker-backups
+```
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+### 🔐 Pro Tips
+
+- Run as root or with `sudo` if needed.
+- You can add a cron job to run this weekly/monthly.
+- Works great even on low-resource machines.
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+Want me to add support for compressing the `.tar` files (`.tar.gz`) to save space? Or add a restore script too?

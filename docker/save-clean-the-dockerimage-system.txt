@@ -1,0 +1,72 @@
+$ docker save -o /tmp/httpd.tar httpd:latest
+
+$ docker load -i /tmp/httpd.tar
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+if you got stuck your system while saving the docker images do instead of the first command
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+$ ionice -c2 -n7 nice -n19 docker save -o httpd.tar httpd:latest
+
+nice -n19: lowest CPU priority
+
+ionice -c2 -n7: lowest I/O priority for the operation
+
+This reduces the chance of system freeze dramatically.
+
+
+
+
+
+
+harish@novlaptop:/tmp$ docker system df
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          6         6         2.556GB   152.9MB (5%)
+Containers      6         1         129.8MB   129.8MB (99%)
+Local Volumes   5         5         1.104GB   0B (0%)
+Build Cache     103       0         115.5MB   115.5MB
+
+Perfect — if you only want to clean up the **build cache** and keep everything else (images, volumes, containers) intact, here's exactly what you need:
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+## 🧹 Clean Only the Build Cache
+
+Run:
+
+```bash
+docker builder prune
+```
+
+It will prompt:
+
+> ⚠️ WARNING! This will remove all dangling build cache. Are you sure you want to continue? [y/N]
+
+Type `y` and hit enter.
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+### 🧼 If You Want to Force It Without Prompt
+
+```bash
+docker builder prune -f
+```
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+### ✅ What It Does
+
+- Frees space used by **intermediate image layers** and **unused build cache**
+- Leaves:
+  - All your **images**             docker images prune
+  - All your **containers**         docker containers prune
+  - All your **volumes**            docker volumes prune
+  - All your **data**               docker data prune
+
+Totally safe if you're not actively building Dockerfiles right now.
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+Let me know if you want a cleanup plan to periodically clear only build cache via cron or script — I can set that up for you too!
+
+

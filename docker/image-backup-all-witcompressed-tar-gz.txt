@@ -1,0 +1,81 @@
+Awesome! Here's the **upgraded version** of the backup script that also:
+
+✅ Compresses each image to `.tar.gz` (to save space)  
+✅ Keeps the same safe naming and logging  
+✅ Still uses low-priority system resources (no freezing!)  
+✅ Supports external drive paths like `/media/harish/E-drive/docker-backups`
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+### 📝 Script: `docker_backup_all_compressed.sh`
+
+```bash
+#!/bin/bash
+
+# Set your backup directory (default: current dir or pass as $1)
+BACKUP_DIR="${1:-./docker-backups}"
+LOG_FILE="$BACKUP_DIR/backup-log.txt"
+
+mkdir -p "$BACKUP_DIR"
+echo "Docker image compressed backup started at $(date)" > "$LOG_FILE"
+
+# Get list of images in format: repository:tag
+images=$(docker images --format '{{.Repository}}:{{.Tag}}')
+
+for image in $images; do
+    # Create a safe file name
+    safe_name=$(echo $image | tr '/:' '_')
+    tar_file="$BACKUP_DIR/${safe_name}.tar"
+    gz_file="${tar_file}.gz"
+
+    echo "Backing up $image -> $gz_file"
+    echo "$(date) - Saving $image as compressed $gz_file" >> "$LOG_FILE"
+
+    # Save and compress with low resource usage
+    if ionice -c2 -n7 nice -n19 docker save "$image" | gzip > "$gz_file"; then
+        echo "✅ $image saved and compressed successfully"
+    else
+        echo "❌ Failed to save $image" | tee -a "$LOG_FILE"
+    fi
+done
+
+echo "Compressed backup complete at $(date)" >> "$LOG_FILE"
+echo "✔️ All done! Compressed images are in: $BACKUP_DIR"
+```
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+### 🚀 How to Use It
+
+1. Save it as `docker_backup_all_compressed.sh`
+2. Make it executable:
+
+```bash
+chmod +x docker_backup_all_compressed.sh
+```
+
+3. Run it (optionally with target path):
+
+```bash
+./docker_backup_all_compressed.sh /media/harish/E-drive/docker-backups
+```
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+### 🔄 Restore a Compressed Backup
+
+To restore one later:
+
+```bash
+gunzip -c nginx_latest.tar.gz | docker load
+```
+
+Or if uncompressed:
+
+```bash
+docker load -i nginx_latest.tar
+```
+
+✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
+
+Want a companion script that **restores all `.tar.gz` files** from a backup folder automatically? I can hook you up with that too.

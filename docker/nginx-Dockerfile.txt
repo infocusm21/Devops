@@ -42,7 +42,11 @@ FROM nginx:latest
 
 LABEL maintainer="infocusm21@gmail.com"
 
-COPY web-data/* /usr/share/nginx/html
+
+
+COPY  web-data1/. /usr/share/nginx/html/
+
+WORKDIR /usr/share/nginx/html/
 
 EXPOSE 80
 
