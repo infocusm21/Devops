@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: nginx
+    container_name: nginx-container
+    restart: always
+    
+    ports:
+      - "80:80"
+   
