@@ -1,0 +1,62 @@
+AWS is complicated
+
+Out of 200+ AWS services, you just need to know these 20 services
+
+➊ 𝐅𝐨𝐮𝐧𝐝𝐚𝐭𝐢𝐨𝐧 𝐒𝐞𝐫𝐯𝐢𝐜𝐞𝐬 (𝐄𝐬𝐬𝐞𝐧𝐭𝐢𝐚𝐥 𝐟𝐨𝐫 𝐂𝐥𝐨𝐮𝐝 𝐁𝐚𝐬𝐢𝐜𝐬)
+These services provide the backbone for security, monitoring, and resource management:
+
+↳ IAM (Identity and Access Management): Role-based access control for users, services, and resources
+
+↳ CloudWatch: For logging, monitoring metrics, and setting alerts for cloud resources
+
+↳ CloudTrail: Tracks user activity and API calls for auditing and compliance
+
+↳ VPC (Virtual Private Cloud): Configures secure networks for cloud resources
+
+↳ CloudFormation/Terraform: Automates resource provisioning using Infrastructure as Code (IaC)
+
+➋ 𝐂𝐨𝐫𝐞 𝐃𝐚𝐭𝐚 𝐄𝐧𝐠𝐢𝐧𝐞𝐞𝐫𝐢𝐧𝐠 𝐒𝐞𝐫𝐯𝐢𝐜𝐞𝐬
+These services are essential for managing, processing, and analyzing data:
+
+↳ S3 (Simple Storage Service): A scalable storage solution for structured and unstructured data
+
+↳ Glue: A serverless ETL (Extract, Transform, Load) service to prepare and transform data
+
+↳ Lambda: A serverless compute service to run code in response to events
+
+↳ RDS (Relational Database Service): Managed relational databases like MySQL, PostgreSQL, and SQL Server
+
+↳ DynamoDB: A NoSQL database for key-value and document-based workloads
+
+↳ Redshift: A fully managed data warehouse for large-scale analytics
+
+↳ Athena: Query data in S3 using SQL without the need for servers
+
+↳ Kinesis: Processes real-time data streams for analytics and applications
+
+↳ EMR (Elastic MapReduce): Processes large datasets using frameworks like Hadoop and Spark
+
+↳ Step Functions: Coordinates workflows for serverless applications and data pipelines
+
+↳ Data Pipeline: Orchestrates data movement and transformation across services
+
+↳ Elasticsearch/OpenSearch: Enables fast and scalable search and analytics for logs and data
+
+➌ 𝐀𝐝𝐝𝐢𝐭𝐢𝐨𝐧𝐚𝐥 𝐔𝐬𝐞𝐟𝐮𝐥 𝐒𝐞𝐫𝐯𝐢𝐜𝐞𝐬
+While not core, these services complement and enhance data engineering workflows:
+
+↳ SNS (Simple Notification Service): Sends notifications and alerts based on events
+
+↳ SQS (Simple Queue Service): Manages message queues for asynchronous processing
+
+↳ API Gateway: Deploys APIs to interact with other services or applications
+
+↳ Secrets Manager/Parameter Store: Securely stores and retrieves sensitive information like database credentials
+
+↳ SageMaker: Builds, trains, and deploys machine learning models
+
+Focus on one service at a time to build confidence, and start creating projects to showcase your skills!
+
+Connect with me: https://lnkd.in/gc-a3jMY
+Join me: https://lnkd.in/giE3e9yH
+Follow for more 👋

@@ -3,46 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Explorer</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Kubernetes File Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-900 font-sans">
 
-    <h2>Kubernets</h2>
-    <div class="file-links">
+    <!-- Navigation -->
+    <nav class="bg-white shadow p-2 mb-4">
+        <div class="max-w-7xl mx-auto">
+            <a href="https://infocusm21.github.io/Devops/" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
+                ← Home
+            </a>
+        </div>
+    </nav>
 
-        <h1>***Installation-Setup***</h1>
-        <a href="cheatsheet-k8s.txt">cheatsheet-k8s</a>
-        <a href="minikube-custom-path-installation.txt">minikube-custom-path-installation</a>
-        <a href="minikube-custom-storage-path.txt">minikube-custom-storage-path</a>
-        <a href="kubectl-custom-installtion.txt">kubectl-custom-installtion</a>
-        <a href="docker-minikube-custom-path-storage.txt">docker-minikube-custom-path-storage</a>
-        <a href="verify-and-access.txt">verify-and-access</a>
-        <a href="0.steps-to-learn.txt">0.steps-to-learn</a>
-        <a href="1-0-fix-autofill-fro-kubectl.txt">1-0-fix-autofill-fro-kubectl</a>
-        <a href="1-4-fix-new-terminal-access.txt">1-4-fix-new-terminal-access</a>
-        <a href="1-1-pod-deletion-deployment-and-run.txt">1-1-pod-deletion-deployment-and-run</a>
-        <a href="1-2-namespace-label-selector.txt">1-2-namespace-label-selector</a>
-        <a href="1pods-deplyments.txt">1pods-deplyments</a>
-        <a href="1-3-YAML-based.txt">1-3-YAML-based</a>
-        <a href="2-ingress.txt">2-ingress</a>
-        <a href="3-hpa-metrics-system-fix.txt">3-hpa-metrics-system-fix</a>
+    <div class="max-w-7xl mx-auto p-6">
+        <h1 class="text-4xl font-bold text-center text-black-600 mb-6">Kubernetes File Explorer</h1>
 
-        <a href="mount-volume-in-minikube-node-pod.txt">mount-volume-in-minikube-node-pod</a>
-        <a href=".txt"></a>
-        <a href=".txt"></a>
-        <a href=".txt"></a>
+        <div class="space-y-10">
 
+            <!-- Installation Section -->
+            <section>
+                <h2 class="text-2xl font-semibold text-black-500 mb-2">*** Installation Setup ***</h2>
+                <div class="space-y-3">
+                    <a href="cheatsheet-k8s.txt" class="block text-lg text-black-600 hover:underline">cheatsheet-k8s</a>
+                    <a href="minikube-custom-path-installation.txt" class="block text-lg text-black-600 hover:underline">minikube-custom-path-installation</a>
+                    <a href="minikube-custom-storage-path.txt" class="block text-lg text-black-600 hover:underline">minikube-custom-storage-path</a>
+                    <a href="kubectl-custom-installtion.txt" class="block text-lg text-black-600 hover:underline">kubectl-custom-installtion</a>
+                    <a href="docker-minikube-custom-path-storage.txt" class="block text-lg text-black-600 hover:underline">docker-minikube-custom-path-storage</a>
+                    <a href="verify-and-access.txt" class="block text-lg text-black-600 hover:underline">verify-and-access</a>
+                    <a href="0.steps-to-learn.txt" class="block text-lg text-black-600 hover:underline">0.steps-to-learn</a>
+                    <a href="1-0-fix-autofill-fro-kubectl.txt" class="block text-lg text-black-600 hover:underline">1-0-fix-autofill-for-kubectl</a>
+                    <a href="1-4-fix-new-terminal-access.txt" class="block text-lg text-black-600 hover:underline">1-4-fix-new-terminal-access</a>
+                    <a href="1-1-pod-deletion-deployment-and-run.txt" class="block text-lg text-black-600 hover:underline">1-1-pod-deletion-deployment-and-run</a>
+                    <a href="1-2-namespace-label-selector.txt" class="block text-lg text-black-600 hover:underline">1-2-namespace-label-selector</a>
+                    <a href="1pods-deplyments.txt" class="block text-lg text-black-600 hover:underline">1pods-deployments</a>
+                    <a href="1-3-YAML-based.txt" class="block text-lg text-black-600 hover:underline">1-3-YAML-based</a>
+                    <a href="2-ingress.txt" class="block text-lg text-black-600 hover:underline">2-ingress</a>
+                    <a href="3-hpa-metrics-system-fix.txt" class="block text-lg text-black-600 hover:underline">3-hpa-metrics-system-fix</a>
+                    <a href="mount-volume-in-minikube-node-pod.txt" class="block text-lg text-black-600 hover:underline">mount-volume-in-minikube-node-pod</a>
+                </div>
+            </section>
 
+            <!-- Problems & Solutions Section -->
+            <section>
+                <h2 class="text-2xl font-semibold text-black-500 mb-2">*** Problem's and Solutions ***</h2>
+                <div class="space-y-3">
+                    <a href="uninstall-k8s-ubuntu.html" class="block text-lg text-black-600 hover:underline">uninstall-k8s-ubuntu</a>
+                    <a href="readme.txt" class="block text-lg text-black-600 hover:underline">ReadMe</a>
+                    <a href="logs.txt" class="block text-lg text-black-600 hover:underline">Logs</a>
+                </div>
+            </section>
 
-
-
-
-        <h2>***Problem's and Solutions***</h2>
-        <a href="uninstall-k8s-ubuntu.html">uninstall-k8s-ubuntu</a>
-        <a href="readme.txt">ReadMe</a>
-        <a href="logs.txt">Logs</a>
-        
+        </div>
     </div>
 
 </body>
