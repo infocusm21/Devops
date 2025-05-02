@@ -3,30 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Explorer</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>File Explorer - Harish's Console</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #667eea; /* Static background color */
+            color: #f9fafb; /* Text color */
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #7f5af0, #e2cccc, #1e8a85);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        .glow-button {
+            background: linear-gradient(90deg, #7f5af0, #e2cccc, #1e8a85);
+            background-size: 200% 200%;
+            color: black;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            box-shadow: 0 0 10px rgba(127, 90, 240, 0.8);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .glow-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(127, 90, 240, 1);
+        }
+
+        .glow-card {
+            transition: box-shadow 0.4s ease, transform 0.4s ease, background 0.4s ease;
+            cursor: default;
+        }
+
+        .glow-card:hover {
+            box-shadow: 0 0 25px 10px rgba(127, 90, 240, 0.3),
+                        0 0 40px 15px rgba(226, 204, 204, 0.2),
+                        0 0 60px 20px rgba(30, 138, 133, 0.2);
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        nav a {
+            color: #1a202c;
+        }
+
+        .dark nav a {
+            color: #f9fafb;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+            color: #3b82f6;
+        }
+
+        #mobileMenu {
+            background-color: #ffffff;
+        }
+
+        .dark #mobileMenu {
+            background-color: #1f2937;
+        }
+
+        @media (min-width: 640px) {
+            #mobileMenu {
+                background-color: transparent;
+            }
+
+            #mobileMenu a {
+                color: #ffffff;
+            }
+        }
+
+        @media (min-width: 768px) {
+            footer {
+                margin-top: auto;
+                padding: 1rem;
+            }
+            
+            footer .flex {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            footer img {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+
+            footer span {
+                font-size: 1rem;
+            }
+        }
+
+        .image-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 2rem;
+            justify-items: center;
+        }
+
+        .image-links img {
+            width: 100%;
+            max-width: 150px;
+            border-radius: 0.375rem;
+            box-shadow: 0 0 10px rgba(127, 90, 240, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .image-links img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(127, 90, 240, 0.6);
+        }
+    </style>
 </head>
-<body>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
 
-    <h2>Operating System's</h2>
-    <div class="image-links">
-        <a href="centos/"><img src="img/centos.png" alt="CentOS"></a>
-        <a href="ubuntu/"><img src="img/ubuntu.png" alt="Ubuntu"></a>
-    </div>
+    <header class="bg-gray-800 text-white p-2 flex justify-between items-center">
+        <h1 class="text-3xl gradient-text">File Explorer</h1>
+    </header>
 
-    <h2>Services</h2>
-    <div class="image-links">
-        <a href="jenkins/index.html"><img src="img/jenkins.png" alt="Jenkins"></a>
-        <a href="tomcat/index.html"><img src="img/tomcat.png" alt="Tomcat"></a>
-        <a href="nginx/index.html"><img src="img/nginx.png" alt="Nginx"></a>
-        <a href="apache/index.html"><img src="img/apache.png" alt="Apache"></a>
-        <a href="docker/index.html"><img src="img/docker.png" alt="Docker"></a>
-        <a href="terraform/index.html"><img src="img/terraform.png" alt="Terraform"></a>
-        <a href="ansible/index.html"><img src="img/ansible.png" alt="Ansible"></a>
-        <a href="github/index.html"><img src="img/github.png" alt="GitHub"></a>
-        <a href="Kubernets/index.html"><img src="img/k8s.png" alt="K8s"></a>
-        <a href="aws-cli/index.html"><img src="img/awscli.png" alt="aws-cli"></a>
-    </div>
+    <section class="p-6 max-w-6xl mx-auto">
+        <h2 class="text-2xl font-bold text-center mt-2 ">Operating System's</h2>
+        <div class="image-links">
+            <a href="centos/"><img src="img/centos.png" alt="CentOS"></a>
+            <a href="ubuntu/"><img src="img/ubuntu.png" alt="Ubuntu"></a>
+        </div>
+
+        <h2 class="text-2xl font-semibold text-center mt-2">Services</h2>
+        <div class="image-links">
+            <a href="jenkins/index.html"><img src="img/jenkins.png" alt="Jenkins"></a>
+            <a href="tomcat/index.html"><img src="img/tomcat.png" alt="Tomcat"></a>
+            <a href="nginx/index.html"><img src="img/nginx.png" alt="Nginx"></a>
+            <a href="apache/index.html"><img src="img/apache.png" alt="Apache"></a>
+            <a href="docker/index.html"><img src="img/docker.png" alt="Docker"></a>
+            <a href="terraform/index.html"><img src="img/terraform.png" alt="Terraform"></a>
+            <a href="ansible/index.html"><img src="img/ansible.png" alt="Ansible"></a>
+            <a href="github/index.html"><img src="img/github.png" alt="GitHub"></a>
+            <a href="Kubernets/index.html"><img src="img/k8s.png" alt="K8s"></a>
+            <a href="aws-cli/index.html"><img src="img/awscli.png" alt="aws-cli"></a>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-gradient-to-r from-yellow-300 to-orange-300 font-bold text-black text-center py-4 px-2">
+        <div class="flex flex-wrap justify-center items-center gap-4 text-sm">
+            <a href="mailto:harishn662@example.com" class="hover:opacity-75" aria-label="Email">
+                <img src="img/gmail.svg" alt="Email" class="w-10 h-10" />
+            </a>
+            <span>harishn662@example.com</span>
+            <a href="https://github.com/harishnshetty" target="_blank" class="hover:opacity-75" aria-label="GitHub">
+                <img src="img/github.svg" alt="GitHub" class="w-10 h-10" />
+            </a>
+            <a href="https://www.linkedin.com/in/harish-n-shetty/" target="_blank" class="hover:opacity-75" aria-label="LinkedIn">
+                <img src="img/linkedin.svg" alt="LinkedIn" class="w-10 h-10" />
+            </a>
+        </div>
+    </footer>
 
 </body>
 </html>
